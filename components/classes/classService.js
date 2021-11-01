@@ -50,9 +50,10 @@ exports.getOneClassByID = async (classID, arrayAttributes) => {
     console.error(error);
   }
 };
-exports.getAllClasses = async (arrayAttributes) => {
+exports.getAllClasses = async (arrayAttributes, options) => {
   try {
-    const allClasses = await Class.findAll({ attributes: arrayAttributes });
+    const { orderOption } = options;
+    const allClasses = await Class.findAll({ attributes: arrayAttributes, order: orderOption });
     return allClasses;
   } catch (error) {
     console.error(error);

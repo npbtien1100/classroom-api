@@ -3,7 +3,7 @@ const classService = require("./classService");
 exports.createAClass = async (req, res) => {
   if (!req.body.className) {
     res.status(400).send({
-      message: "Class name can not be empty!",
+      error: "Class name can not be empty!",
     });
     return;
   } else {
@@ -19,8 +19,10 @@ exports.createAClass = async (req, res) => {
 };
 
 exports.getAllClasses = async (req, res) => {
+  const options = { orderOption: [["id", "DESC"]] };
   const result = await classService.getAllClasses(
     ["id", "className", "classSection", "subject", "room"],
+    options
   );
   res.json(result);
 };
@@ -50,7 +52,7 @@ exports.updateAClass = async (req, res) => {
     });
     return;
   }
-  res.send(result);
+  res.json(result);
 };
 
 exports.deleteAClass = async (req, res) => {
